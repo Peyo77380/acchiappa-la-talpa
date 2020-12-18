@@ -1,4 +1,5 @@
 import { createChild } from "../helpers/helpers.js";
+import { Character } from "./character.js";
 
 export class Game 
 {
@@ -14,13 +15,14 @@ export class Game
 
     setBoard (height, width) {
         this.board = createChild('board', 'div', this.wrapper);
+        this.height = height;
+        this.width = width;
 
-        const table = createChild('boardTable', 'table', this.board);
+        this.boardTable = createChild('boardTable', 'table', this.board);
         for (let i = 0; i < height; i++) {
-            const row = createChild('boardRow', 'tr', table );
+            const row = createChild('boardRow', 'tr', this.boardTable );
             for (let j = 0; j < width; j++) {
                 const cell = createChild('boardCell', 'td', row);
-                cell.innerText = j;
             }
         }
     
@@ -28,6 +30,18 @@ export class Game
 
     setScoreCounter () {
         this.scoreCounter = createChild('scoreCounter', 'div', this.wrapper);
+    }
+
+
+    startGame () {
+        let character = new Character ();
+
+        if (!this.height || !this.width) {
+            throw new Error ('The board dimensions are not defined.');
+        }
+        character.setPosition (this.height, this.width); 
+        character.setPicture();
+        character.draw(this.boardTable);
     }
 
 }

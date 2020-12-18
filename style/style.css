@@ -1,0 +1,19 @@
+
+table, tr, td {
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+
+td {
+    height : 4rem;
+    width: 4rem;
+}
+
+.char {
+    content: "";
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: red;
+
+}

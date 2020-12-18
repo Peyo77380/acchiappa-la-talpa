@@ -24,3 +24,12 @@ export function createChild ( classname, htmlTag, parent ) {
 
     return child;
 }
+
+export function randomInteger(min, max) {
+    
+    if (typeof min !== 'number' || typeof max !== 'number') {
+        throw new Error ('Minimum and maximum have to be of type "number".')
+    }
+    return Math.floor((Math.random() * max) + min);
+  }
+
