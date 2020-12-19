@@ -1,10 +1,15 @@
-import { createChild, randomInteger } from "../helpers/helpers.js";
+import { createChild, randomInteger, setEventListener, setUniqueEventListener } from "../helpers/helpers.js";
+import { Timer } from "./timer.js";
 
 export class Character 
 {
-    constructor () {
+    constructor (maxHeight, maxWidth, place) {
 
+        this.setPosition (maxHeight, maxWidth); 
+        this.setPicture();
+        this.draw(place);
         
+
     }
 
     setPicture () {
@@ -19,8 +24,8 @@ export class Character
         }
 
         this.coordinate = {
-            'x' : randomInteger ( 0, maxHeight) +1,
-            'y' : randomInteger (0, maxWidth) +1,
+            'x' : randomInteger ( 0, maxHeight) + 1,
+            'y' : randomInteger (0, maxWidth) + 1,
         }
     }
 
@@ -28,12 +33,36 @@ export class Character
         
         let row = place.querySelector(`tr:nth-child(${this.coordinate.x})`);
         
-        let cell = row.querySelector(`td:nth-child(${this.coordinate.y})`)
-        
-        let char = createChild('char', 'div', cell);
+        this.cell = row.querySelector(`td:nth-child(${this.coordinate.y})`)
 
+        this.char = createChild('char', 'div', this.cell);
+
+        
+        setEventListener(this.char, 'click', this.hide);
+
+        this.setDisplayTime();
 
     }
+
+
+    hide (object) {
+        if( !object ) {
+            return;
+        }
+    
+        if ( object.target) {
+            return object.target.parentNode.removeChild(object.target);
+
+        }
+        
+        return object.innerHTML = '';
+    }
+
+    setDisplayTime () {
+        let timer = new Timer;
+        timer.setTimeout(this.hide, [this.cell], 2000);
+    }
+
 
 
 

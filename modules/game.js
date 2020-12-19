@@ -1,5 +1,6 @@
 import { createChild } from "../helpers/helpers.js";
 import { Character } from "./character.js";
+import { Timer } from "./timer.js";
 
 export class Game 
 {
@@ -34,16 +35,32 @@ export class Game
 
 
     startGame () {
-        let character = new Character ();
-
+        
         if (!this.height || !this.width) {
             throw new Error ('The board dimensions are not defined.');
         }
-        character.setPosition (this.height, this.width); 
-        character.setPicture();
-        character.draw(this.boardTable);
+
+        if ( ! this.boardTable ) {
+            throw new Error ('The parent element is not defined.')
+        }
+        
+        
+
+        for (let i = 0; i<10; i++) {
+            let timer = new Timer();
+            timer.setTimeout ( this.setCharacterProperties, [this.height, this.width, this.boardTable], (2000 + Math.random() /Math.random() * i*1000) );
+            
+
+        }
+
+    
+    }
+
+    setCharacterProperties (height, width, boardTable) {
+        let character = new Character (height, width, boardTable);
+        let timer = new Timer ();
+        timer.setTimeout ( character.hide, '', 2000)
     }
 
 }
-
 

@@ -6,7 +6,7 @@ import { Game } from './modules/game.js';
 try {
     let game = new Game();
 
-    game.setBoard (10, 10);
+    game.setBoard (8, 8);
     game.setScoreCounter();
     game.startGame();
 
