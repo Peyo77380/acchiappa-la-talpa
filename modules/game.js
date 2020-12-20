@@ -59,7 +59,7 @@ export class Game
     setCharacterProperties (height, width, boardTable) {
         let character = new Character (height, width, boardTable);
         let timer = new Timer ();
-        timer.setTimeout ( character.hide, '', 2000)
+        timer.setTimeout ( character.hide, '', 2000);
     }
 
 }

@@ -4,10 +4,8 @@ import { Timer } from "./timer.js";
 export class Character 
 {
     constructor (maxHeight, maxWidth, place) {
-
-        this.setPosition (maxHeight, maxWidth); 
         this.setPicture();
-        this.draw(place);
+        this.draw(maxHeight, maxWidth, place);
         
 
     }
@@ -29,11 +27,15 @@ export class Character
         }
     }
 
-    draw (place) {
+    draw (maxHeight, maxWidth, place) {
         
-        let row = place.querySelector(`tr:nth-child(${this.coordinate.x})`);
+        do {
+            this.setPosition(maxHeight, maxWidth);
+            let row = place.querySelector(`tr:nth-child(${this.coordinate.x})`);
         
-        this.cell = row.querySelector(`td:nth-child(${this.coordinate.y})`)
+            this.cell = row.querySelector(`td:nth-child(${this.coordinate.y})`);
+    
+        } while (this.cell.innerHTML !== "");
 
         this.char = createChild('char', 'div', this.cell);
 
